@@ -9,7 +9,7 @@ If initialization failed, follow these steps!
 2. Copy the config file **pvpn-cli.cfg** into: ~/.pvpn-cli/. 
 3. Replace **<username>** and **<password>** with your username and password of protonvpn **vpn cedentials**.
 4. Copy the config file **pvpnpass** into: ~/.pvpn-cli/.
-Enjoy using Proton VPN by **c**onnecting:
+<br/>Enjoy using Proton VPN by **c**onnecting:
   $ sudo protonvpn c
-Also you can **d**isconnect it by:
+<br/>Also you can **d**isconnect it by:
   $ sudo protonvpn d

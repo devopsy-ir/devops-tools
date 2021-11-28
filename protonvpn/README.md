@@ -1,7 +1,7 @@
 # devops-tools
 # Proton VPN
 Steps to complete **protonvpn failed init**:
-0. Initiaalize proton vpn:
+<br/>0. Initiaalize proton vpn:
   $ sudo protonvpn init
 If initialization failed, follow these steps!  
 1. Retrieve a username from **vpn cedentials** of protonvpn website  and then replace **<username>**, in the config file (file **pvpn-cli.cfg**), by your protonvpn username.

@@ -1,0 +1,16 @@
+- hosts: all
+  become: yes
+  tasks:
+  - name: Install docker
+    apt:
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 86400
+      force_apt_get: yes
+      package:
+        name:
+          - tmux
+          - rsync
+          - zsh
+          - rsync
+          - wget

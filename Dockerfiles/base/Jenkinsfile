@@ -1,0 +1,33 @@
+pipeline {
+    environment {
+        registry = "docker.itc.aqr.ir/ict/debian"
+    }
+
+    agent any
+
+    stages {
+        stage('Clone Infra project') {
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'GitLFSPull'], [$class: 'WipeWorkspace']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins_build_user', url: 'https://bitbucket.itc.razavi.ir/scm/infra/infra.git']]])
+            }
+        }
+
+        stage('Building debian image') {
+            steps{
+                sh "sed -e 's/DIST=.*/DIST=$dist/g' docker-images/base/build.properties -i"
+                sh "cd docker-images/base/ && /bin/bash build.sh"
+            }
+        }
+
+        stage('Push images') {
+            steps{
+                script {
+                    def server = Artifactory.server 'AQR Docker'
+                    def docker = Artifactory.docker server: server
+                    def image = docker.push registry + ':' + dist, 'docker'
+                    server.publishBuildInfo image
+                }
+            }
+        }
+    }
+}

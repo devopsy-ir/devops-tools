@@ -1,0 +1,4 @@
+deb http://mirrors.kernel.org/debian/ DIST_NAME main contrib non-free
+deb http://mirrors.kernel.org/debian/ DIST_NAME-updates main contrib non-free
+deb http://mirrors.kernel.org/debian/ DIST_NAME-backports main contrib non-free
+deb http://security.debian.org/ DIST_SECURITY_NAME/updates main contrib non-free

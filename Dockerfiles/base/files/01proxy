@@ -1,0 +1,2 @@
+Acquire::http::Proxy "http://proxy.itc.aqr.ir:8080";
+Acquire::https::Proxy "http://proxy.itc.aqr.ir:8080";

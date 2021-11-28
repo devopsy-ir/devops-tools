@@ -1,0 +1,12 @@
+version: "3"
+services:
+  portainer:
+    image: docker.itc.aqr.ir/ict/portainer/portainer-ce:latest
+    ports:
+      - 9000:9000
+      - 8000:8000
+    restart: unless-stopped
+    command: --admin-password "${PORTAINER_ADMIN_PASSWORD_HASH}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./volumes/portainer-data:/data

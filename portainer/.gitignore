@@ -1,0 +1,9 @@
+secrets/
+.idea/
+
+tahatemp*
+*.env
+volumes
+docker-images/sftp/files/users.conf
+*.htpasswd
+docker-images/mehmansara/**/user.sh

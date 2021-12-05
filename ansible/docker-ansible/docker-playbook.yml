@@ -29,6 +29,6 @@
       apt: update_cache=yes name=docker-ce state=latest
     - name: Install docker-compose
       get_url: 
-        url : https://github.com/docker/compose/releases/download/{{ compose_version }}/docker-compose-$(uname -s)-$(uname -m)
+        url : https://github.com/docker/compose/releases/download/{{ compose_version }}/docker-compose-Linux-x86_64
         dest: /usr/local/bin/docker-compose
         mode: 'u+x,g+x'

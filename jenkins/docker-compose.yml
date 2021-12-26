@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  jenkins:
+    image: docker.my4030.ir/ict/jenkins:2.319.1-autoplugins
+    privileged: true
+    user: root
+    ports:
+      - 8004:8080
+      - 8005:50000
+    environment:
+      - CASC_JENKINS_CONFIG=/etc/jenkins/casc_configs
+      - SSH_KEY_PASSWORD=SSH_KEY_PASSWORD
+      - SSH_PRIVATE_KEY=SSH_PRIVATE_KEY
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    volumes:
+      - ./files/casc_configs:/etc/jenkins/casc_configs
+      - ./volumes/android-sdk:/usr/lib/android-sdk
+      - ./volumes/flutter:/usr/share/flutter
+      - ./volumes/jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/local/bin/docker:/usr/local/bin/docker
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"

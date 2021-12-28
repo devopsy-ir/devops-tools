@@ -1,7 +1,6 @@
 version: "3"
 services:
   web1:
-    network_mode: bridge
     image: nginx:latest
     ports:
       - 8010:80
@@ -9,7 +8,6 @@ services:
       - ./files/web1/html:/var/www/html
       - ./files/web1/default:/etc/nginx/sites-enabled/default
   web2:
-    network_mode: bridge
     image: nginx:latest
     ports:
       - 8011:80
@@ -17,11 +15,10 @@ services:
       - ./files/web2/html:/var/www/html
       - ./files/web2/default:/etc/nginx/sites-enabled/default
   haproxy:
-    network_mode: bridge
-    image: haproxy:2.4-curl
+    image: haproxy:2.4
     links:
       - web1
       - web2
     volumes:
       - ./files/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-#      - ./files/haproxy/errors:/etc/haproxy/errors
+      - ./files/haproxy/errors:/etc/haproxy/errors

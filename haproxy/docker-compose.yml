@@ -1,0 +1,24 @@
+version: "3"
+services:
+  web1:
+    image: nginx:latest
+    ports:
+      - 8010:80
+    volumes:
+      - ./files/web1/html:/var/www/html
+      - ./files/web1/default:/etc/nginx/sites-enabled/default
+  web2:
+    image: nginx:latest
+    ports:
+      - 8011:80
+    volumes:
+      - ./files/web2/html:/var/www/html
+      - ./files/web2/default:/etc/nginx/sites-enabled/default
+  haproxy:
+    image: haproxy:2.4
+    links:
+      - web1
+      - web2
+    volumes:
+      - ./files/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - ./files/haproxy/errors:/etc/haproxy/errors

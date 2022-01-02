@@ -1,5 +1,6 @@
 With just two lines of code you can add a counter to any library or application. These counters are useful to track how many times errors and unexpected situations occur. While you probably don’t want to alert every single time there is an error, knowing how errors are trending over time is useful for debugging. But this is not restricted to errors. Knowing which are the most popular features and code paths of your application allows you to optimise how you allocate your development efforts.
 
+
 To run:
 1. Download prometheus from https://prometheus.io/download, extract it and then run it (/bin/bash prometheus) after copying file 'prometheus.yml' from here into the extracted prometheus dir!
 

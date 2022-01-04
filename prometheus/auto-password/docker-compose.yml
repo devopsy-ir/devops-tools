@@ -1,0 +1,14 @@
+version: "3"
+services:
+  prom:
+    image: prom/prometheus:v2.32.1
+    ports:
+      - 9090:9090
+    volumes:
+      - ./files/prometheus/:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.config.file=/etc/prometheus/web.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'

@@ -19,4 +19,5 @@ services:
       - 80:80
     volumes:
       - ./files/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - ./files/haproxy/geolocation.txt:/usr/local/etc/haproxy/geolocation.txt
       - ./files/haproxy/errors:/etc/haproxy/errors

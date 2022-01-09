@@ -1,0 +1,5 @@
+- name: os specific vars
+  include_vars: "{{ 'ansible_distribution'-'ansible_distribution_major_version' | lower }}"
+
+- name: os specific tasks
+  include: "{{ 'ansible_distribution'-'ansible_distribution_major_version' | lower }}.yml"

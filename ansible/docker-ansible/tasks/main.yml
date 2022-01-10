@@ -1,5 +1,14 @@
-- name: os specific vars
-  include_vars: "{{ 'ansible_distribution'-'ansible_distribution_major_version' | lower }}"
+#################################################
+# DO Community Playbooks: Docker
+#################################################
+---
+- hosts: all
+  become: true
+  vars_files:
+    - ../vars/docker.yml
+#- name: os specific vars
+#  include_vars: "{{ 'ansible_distribution'-'ansible_distribution_major_version' | lower }}"
 
-- name: os specific tasks
-  include: "{{ 'ansible_distribution'-'ansible_distribution_major_version' | lower }}.yml"
+  tasks:  
+    - name: os specific tasks
+      include: "{{ ansible_distribution | lower }}-{{ ansible_distribution_release }}.yml"

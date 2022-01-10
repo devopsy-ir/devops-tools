@@ -1,0 +1,32 @@
+version: "3"
+services:
+  prometheus:
+    image: prom/prometheus:v2.32.1
+    ports:
+      - 9090:9090
+    volumes:
+      - ./files/prometheus:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.config.file=/etc/prometheus/web.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+  grafana:
+    image: grafana/grafana:8.3.3
+    volumes:
+      - grafana:/var/lib/grafana
+      - ./files/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./files/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GF_ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - PROMETHEUSADMINPASS=${PROM_ADMIN_PASS:-admin}
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    labels:
+      org.label-schema.group: "monitoring"
+volumes:
+  grafana:

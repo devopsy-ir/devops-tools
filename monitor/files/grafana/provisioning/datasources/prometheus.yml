@@ -8,6 +8,6 @@ datasources:
     url: http://prometheus:9090
     basicAuth: true
     basicAuthUser: admin
-    basicAuthPassword: $PROMETHEUSADMINPASS
+    basicAuthPassword: !r==P=E)5f0IA
     isDefault: true
     editable: true

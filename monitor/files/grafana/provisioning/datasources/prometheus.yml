@@ -1,13 +1,22 @@
 apiVersion: 1
 
+deleteDatasources:
+  - name: Prometheus
+    orgId: 1
+
 datasources:
   - name: Prometheus
     type: prometheus
     access: proxy
+    # withCredentials: true
     orgId: 1
     url: http://prometheus:9090
     basicAuth: true
     basicAuthUser: admin
-    basicAuthPassword: !r==P=E)5f0IA
+    # basicAuthPassword: admin
     isDefault: true
+    secureJsonData:
+      # <string> basic auth password
+      basicAuthPassword: ${PROMETHEUS_ADMIN_PASS}
+    version: 1
     editable: true

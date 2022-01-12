@@ -6,14 +6,23 @@ services:
       - 9090:9090
     volumes:
       - ./files/prometheus:/etc/prometheus/
+      - shared:/etc/password
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--web.config.file=/etc/prometheus/web.yml'
+      - '--web.config.file=/etc/password/web.yml'
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
+    depends_on:
+      - python
+  python:
+    image: python:3-password
+    volumes:
+      - shared:/usr/src/myapp
+    environment:
+      - PASSWORD=${PROM_ADMIN_PASS:-admin}
   grafana:
-    image: grafana/grafana:8.3.3
+    image: grafana/grafana
     volumes:
       - grafana:/var/lib/grafana
       - ./files/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
@@ -22,7 +31,7 @@ services:
       - GF_SECURITY_ADMIN_USER=${GF_ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${GF_ADMIN_PASSWORD:-admin}
       - GF_USERS_ALLOW_SIGN_UP=false
-      - PROMETHEUSADMINPASS=${PROM_ADMIN_PASS:-admin}
+      - PROMETHEUS_ADMIN_PASS=${PROM_ADMIN_PASS:-admin}
     restart: unless-stopped
     ports:
       - 3000:3000
@@ -30,3 +39,5 @@ services:
       org.label-schema.group: "monitoring"
 volumes:
   grafana:
+  shared:
+    driver: local

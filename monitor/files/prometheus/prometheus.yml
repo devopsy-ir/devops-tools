@@ -13,16 +13,19 @@ scrape_configs:
     static_configs:
       - targets:
           - localhost:9090
-  - job_name: node
+  - job_name: node-188
     static_configs:
       - targets:
-          - localhost:9100
-  - job_name: python
+          - 172.20.169.55:9100
+  - job_name: cadvisor-188
     static_configs:
       - targets:
-          - localhost:8000
-
-  - job_name: haproxy 
+          - 172.20.169.55:8080
+  - job_name: node-168
     static_configs:
       - targets:
-          - localhost:9101
+          - 172.20.169.57:9100
+  - job_name: cadvisor-168
+    static_configs:
+      - targets:
+          - 172.20.169.57:8080

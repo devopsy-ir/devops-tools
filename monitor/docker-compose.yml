@@ -16,7 +16,7 @@ services:
     depends_on:
       - python
   python:
-    image: python:3-password
+    build: .
     volumes:
       - shared:/usr/src/myapp
     environment:
@@ -35,8 +35,20 @@ services:
     restart: unless-stopped
     ports:
       - 3000:3000
+    depends_on: 
+      - loki
     labels:
       org.label-schema.group: "monitoring"
+  loki:
+    image: grafana/loki:2.4.2
+#    user: root
+#    entrypoint:
+#      - "chown"
+#      - "10001:10001"
+#      - "/loki"
+    volumes:
+      - ./volumes/loki:/loki
+      - ./files/loki.yaml:/etc/config/loki.yaml
 volumes:
   grafana:
   shared:

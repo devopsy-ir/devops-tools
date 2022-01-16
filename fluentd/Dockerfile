@@ -49,6 +49,8 @@ RUN groupadd -r fluent && useradd -r -g fluent fluent \
     && mkdir -p /fluentd/etc /fluentd/plugins \
     && chown -R fluent /fluentd && chgrp -R fluent /fluentd
 
+#Fluentd plugins
+RUN fluent-gem install fluent-plugin-grafana-loki
 
 COPY fluent.conf /fluentd/etc/
 COPY entrypoint.sh /bin/

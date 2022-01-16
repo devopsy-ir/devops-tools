@@ -10,13 +10,8 @@ datasources:
     access: proxy
     # withCredentials: true
     orgId: 1
-    url: http://loki:9090
-    basicAuth: true
-    basicAuthUser: admin
-    # basicAuthPassword: admin
+    url: http://loki:3100
+    basicAuth: false
     isDefault: false
-    #secureJsonData:
-      # <string> basic auth password
-      #basicAuthPassword: ${PROMETHEUS_ADMIN_PASS}
     version: 1
     editable: true

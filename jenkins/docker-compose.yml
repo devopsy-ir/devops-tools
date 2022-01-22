@@ -7,7 +7,7 @@ services:
     user: root
     ports:
       - ${PORT}:8080
-      - ${TCL_AGNET_PORT}:50000
+      - ${TCP_AGENT_PORT}:50000
     environment:
       - CASC_JENKINS_CONFIG=/etc/jenkins/casc_configs
       - SSH_KEY_PASSWORD=SSH_KEY_PASSWORD

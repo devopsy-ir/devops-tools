@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   jenkins:
-    image: docker.my4030.ir/ict/jenkins:2.319.1-autoplugins
+    image: jenkins:2.319.1-autoplugins
     privileged: true
     user: root
     ports:

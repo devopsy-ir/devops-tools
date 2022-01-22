@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  tor:
+    build:
+      context: ./tor
+      dockerfile: Dockerfile
+    volumes:
+      - ./tor/tor.conf:/etc/tor/torrc
+    ports:
+      - 8123:8123
+
+  polipo:
+    build:
+      context: ./polipo
+      dockerfile: Dockerfile
+    volumes:
+      - ./polipo/polipo.conf:/etc/polipo/conf
+    ports:
+      - 9050:9050

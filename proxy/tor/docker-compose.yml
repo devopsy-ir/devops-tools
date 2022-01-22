@@ -1,0 +1,7 @@
+version: "3.8"
+
+services:
+  tor:
+    build: .
+    volumes:
+      - ./tor.conf:/etc/tor/torrc

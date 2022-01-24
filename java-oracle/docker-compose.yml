@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  java:
+    image: docker.my4030.ir/ict/java_oracle:${JAVA_VERSION}
+    build:
+      context: .
+      args:
+        - JAVA_VERSION=${JAVA_VERSION}
+        - JAVA_MINOR_VERSION=${JAVA_MINOR_VERSION}
+        - PROXY=${PROXY}

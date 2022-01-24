@@ -1,0 +1,33 @@
+version: "3.4"
+services:
+  jira:
+    #image: jira-software:latest
+    build:
+      context: .
+      args:
+        - JIRA_VERSION=${JIRA_VERSION}
+        - PROXY=${PROXY}
+      dockerfile: ./Dockerfile
+    image: jira:${JIRA_VERSION}
+    restart: always
+    stop_grace_period: 5m
+    ports:
+      - ${JIRA_PORT}:8080
+    volumes:
+      - ./volumes/data:/data
+#    mem_limit: 8192m
+  postgres:
+    image: docker.my4030.ir/postgres:14.1-bullseye
+    restart: always
+    stop_grace_period: 10m
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data
+      - ./files/postgres:/etc/postgresql/conf.d:ro
+    environment:
+      POSTGRES_PASSWORD: '${PG_PASSWORD}'
+      POSTGRES_USER: '${PG_USER}'
+      POSTGRES_DB: '${PG_DATABASE}'
+      #PG_REPLICATION: master
+      #PG_REPLICA_PASSWORD: '${PG_REPLICA_PASSWORD}'
+    ports:
+      - ${PG_PORT}:5432

@@ -17,7 +17,7 @@ services:
       - ./volumes/data:/data
 #    mem_limit: 8192m
   postgres:
-    image: docker.my4030.ir/postgres:14.1-bullseye
+    image: postgres:13.1
     restart: always
     stop_grace_period: 10m
     volumes:

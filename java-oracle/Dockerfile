@@ -2,18 +2,21 @@ FROM docker.my4030.ir/ubuntu:focal
 MAINTAINER SgrAlpha <admin@mail.sgr.io>
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    JAVA_HOME=/usr/lib/jvm/java-15-oracle
+    JAVA_HOME=/usr/lib/jvm/java-11-oracle
+
+COPY jdk-11.0.13_linux-x64_bin.tar.gz .
+RUN tar xz -C /tmp -f jdk-11.0.13_linux-x64_bin.tar.gz
 
 RUN \
-    JAVA_VERSION=15.0.2 && \
+    JAVA_VERSION=11.0.13 && \
     JAVA_BUILD=7 && \
     JAVA_SIG=0d1cfde4252546c6931946de8db48ee2 && \
     apt-get update && apt-get dist-upgrade -y && \
     apt-get install apt-utils ca-certificates curl -y --no-install-recommends && \
-    curl -Ls \
-        --cookie "oraclelicense=accept-securebackup-cookie;" \
-        http://download.oracle.com/otn-pub/java/jdk/"${JAVA_VERSION}"+"${JAVA_BUILD}"/"${JAVA_SIG}"/jdk-"${JAVA_VERSION}"_linux-x64_bin.tar.gz \
-        | tar xz -C /tmp && \
+#    curl -Ls \
+#        --cookie "oraclelicense=accept-securebackup-cookie;" \
+#        http://download.oracle.com/otn-pub/java/jdk/"${JAVA_VERSION}"+"${JAVA_BUILD}"/"${JAVA_SIG}"/jdk-"${JAVA_VERSION}"_linux-x64_bin.tar.gz \
+#        | tar xz -C /tmp && \
     mkdir -p /usr/lib/jvm && mv /tmp/jdk-"${JAVA_VERSION}" "${JAVA_HOME}" && \
     apt-get autoclean && apt-get --purge -y autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \

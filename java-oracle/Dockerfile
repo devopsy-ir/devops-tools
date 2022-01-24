@@ -1,28 +1,23 @@
 FROM docker.my4030.ir/ubuntu:focal
+MAINTAINER SgrAlpha <admin@mail.sgr.io>
 
-ARG JAVA_VERSION
-#ARG JAVA_MAJOR_VERSION
-#ARG JAVA_MINOR_VERSION
-ARG PROXY
+ENV DEBIAN_FRONTEND=noninteractive \
+    JAVA_HOME=/usr/lib/jvm/java-15-oracle
 
-RUN echo 'Acquire::http::Proxy "${PROXY}";' > /etc/apt/apt.conf.d/01proxy
-
-RUN set -ex \
-    && export http_proxy=${PROXY} && export https_proxy=${PROXY} && \
-    export HTTP_PROXY=${PROXY} && export HTTPS_PROXY=${PROXY} && \
-    apt-get -y update && apt -y upgrade 
-
-RUN set -ex \
-    && export http_proxy=${PROXY} && export https_proxy=${PROXY} && \
-    export HTTP_PROXY=${PROXY} && export HTTPS_PROXY=${PROXY} && \
-    apt install -y software-properties-common && \
-    add-apt-repository -y ppa:linuxuprising/java && \
-    apt-get update && \
-    echo oracle-java8-installer shared/accepted-oracle-license-v1-2 select true | /usr/bin/debconf-set-selections && \
-    apt-get install -y oracle-java8-installer && \
-    apt install oracle-java8-set-default && \
-    rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
-
-ENV JAVA_HOME /usr/lib/jvm/java-16-oracle
-
-CMD "/bin/bash"
+RUN \
+    JAVA_VERSION=15.0.2 && \
+    JAVA_BUILD=7 && \
+    JAVA_SIG=0d1cfde4252546c6931946de8db48ee2 && \
+    apt-get update && apt-get dist-upgrade -y && \
+    apt-get install apt-utils ca-certificates curl -y --no-install-recommends && \
+    curl -Ls \
+        --cookie "oraclelicense=accept-securebackup-cookie;" \
+        http://download.oracle.com/otn-pub/java/jdk/"${JAVA_VERSION}"+"${JAVA_BUILD}"/"${JAVA_SIG}"/jdk-"${JAVA_VERSION}"_linux-x64_bin.tar.gz \
+        | tar xz -C /tmp && \
+    mkdir -p /usr/lib/jvm && mv /tmp/jdk-"${JAVA_VERSION}" "${JAVA_HOME}" && \
+    apt-get autoclean && apt-get --purge -y autoremove && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    update-alternatives --install "/usr/bin/java" "java" "${JAVA_HOME}/bin/java" 1 && \
+    update-alternatives --install "/usr/bin/javac" "javac" "${JAVA_HOME}/bin/javac" 1 && \
+    update-alternatives --set java "${JAVA_HOME}/bin/java" && \
+    update-alternatives --set javac "${JAVA_HOME}/bin/javac"

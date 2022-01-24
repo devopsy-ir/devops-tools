@@ -6,5 +6,4 @@ services:
       context: .
       args:
         - JAVA_VERSION=${JAVA_VERSION}
-        - JAVA_MINOR_VERSION=${JAVA_MINOR_VERSION}
         - PROXY=${PROXY}

@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   java:
-    image: docker.my4030.ir/ict/java_oracle:${JAVA_VERSION}
+    image: java_oracle:${JAVA_VERSION}
     build:
       context: .
       args:

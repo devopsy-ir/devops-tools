@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  conf:
+    build:
+      context: .
+      args:
+        - CONF_VERSION=${CONF_VERSION}
+        - PROXY=${PROXY}
+      dockerfile: ./Dockerfile
+    image: confluence:${CONF_VERSION}
+    restart: always
+    stop_grace_period: 5m
+    ports:
+      - ${CONF_PORT}:8090
+      - ${CONF_SYNC_PORT}:8091
+    volumes:
+      - ./volumes/confluence/data:/data/confluence
+      - confluence-conf:/app/confluence/conf
+      - ./files/atlassian-extras-decoder-v2-3.4.1.jar:/app/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.4.1.jar:ro
+#    mem_limit: 4096m
+  postgres:
+    image: postgres:11
+    restart: always
+    stop_grace_period: 10m
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data
+      - ./files/postgres:/etc/postgresql/conf.d:ro
+    environment:
+      POSTGRES_PASSWORD: '${PG_PASSWORD}'
+      POSTGRES_USER: '${PG_USER}'
+      POSTGRES_DB: '${PG_DATABASE}'
+      #PG_REPLICATION: master
+      #PG_REPLICA_PASSWORD: '${PG_REPLICA_PASSWORD}'
+    ports:
+      - ${PG_PORT}:5432
+
+volumes:
+  confluence-conf:
+    driver: local
+    driver_opts:
+      o: bind
+      type: mount
+      device: $PWD/volumes/confluence/conf

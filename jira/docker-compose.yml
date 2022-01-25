@@ -1,4 +1,4 @@
-version: "3.4"
+version: "3"
 services:
   jira:
     #image: jira-software:latest
@@ -8,16 +8,17 @@ services:
         - JIRA_VERSION=${JIRA_VERSION}
         - PROXY=${PROXY}
       dockerfile: ./Dockerfile
-    image: jira:${JIRA_VERSION}
+    image: docker.my4030.ir/ict/jira:${JIRA_VERSION}
     restart: always
     stop_grace_period: 5m
     ports:
       - ${JIRA_PORT}:8080
     volumes:
-      - ./volumes/data:/data
+      - jira-data:/data/jira
+      - jira-conf:/app/jira/conf
 #    mem_limit: 8192m
   postgres:
-    image: postgres:13.1
+    image: docker.my4030.ir/postgres:11
     restart: always
     stop_grace_period: 10m
     volumes:
@@ -31,3 +32,17 @@ services:
       #PG_REPLICA_PASSWORD: '${PG_REPLICA_PASSWORD}'
     ports:
       - ${PG_PORT}:5432
+
+volumes:
+  jira-conf:
+    driver: local
+    driver_opts:
+      o: bind
+      type: mount
+      device: $PWD/volumes/jira/conf
+  jira-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: mount
+      device: $PWD/volumes/jira/data

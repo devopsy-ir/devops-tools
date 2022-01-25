@@ -1,4 +1,4 @@
-FROM java_oracle:11
+FROM docker.my4030.ir/ict/java_oracle:11
 
 #JIRA_VERSION: https://confluence.atlassian.com/jirasoftware/jira-software-release-notes
 ARG JIRA_VERSION
@@ -17,7 +17,6 @@ RUN set -ex \
 #	&& unzip -o -d /app/jira/atlassian-jira/ /files/jfs-patch* \
     && chown -R ${RUN_USER}:${RUN_GROUP} /app \
 	&& rm jira.tar.gz
-RUN ls -llh jira/atlassian-jira/WEB-INF/lib/
 
 #######################Patch########################
 
@@ -28,7 +27,7 @@ RUN ls -llh jira/atlassian-jira/WEB-INF/lib/
 #        ./patch.sh $i; done
 ####################################################
 
-COPY files/atlassian-extras-3.4.6.jar ira/atlassian-jira/WEB-INF/lib/
+#COPY files/atlassian-extras-3.4.6.jar ira/atlassian-jira/WEB-INF/lib/
 
 RUN set -ex \
     && apt-get update -y && \
@@ -39,7 +38,7 @@ RUN set -ex \
     && echo "jira.home = ${JIRA_HOME}" > jira/atlassian-jira/WEB-INF/classes/jira-application.properties \
     # && sed -i "s|java version|openjdk version|" /app/jira/bin/check-java.sh \
 #    && sed -i 's/JiraSeraphAuthenticator/SSOSeraphAuthenticator/g' jira/atlassian-jira/WEB-INF/classes/seraph-config.xml \
-    && sed -i '/<Connector port="8080"/a scheme="https" proxyName="jira.my4030.ir" proxyPort="443"' jira/conf/server.xml \
+    && sed -i '/<Connector port="8080"/a scheme="http"' jira/conf/server.xml \
 #    && sed -i "s/^.*JVM_SUPPORT_RECOMMENDED_ARGS=.*$/JVM_SUPPORT_RECOMMENDED_ARGS='-Dhttp.proxyHost=proxy.itc.aqr.ir -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.itc.aqr.ir -Dhttps.proxyPort=8080 -Dhttp.nonProxyHosts=\"localhost|127.0.0.1|*.aqrazavi.org|*.aqr.ir|*.itc.aqr.ir|*.razavi.ir|*.itc.razavi.ir\" -Dhttps.nonProxyHosts=\"localhost|127.0.0.1|*.aqrazavi.org|*.aqr.ir|*.itc.aqr.ir|*.razavi.ir|*.itc.razavi.ir\"'/" jira/bin/setenv.sh \
     && sed -i '/JVM_MINIMUM_MEMORY=/c\JVM_MINIMUM_MEMORY=\"2048m\"' jira/bin/setenv.sh \
     && sed -i '/JVM_MAXIMUM_MEMORY=/c\JVM_MAXIMUM_MEMORY=\"4096m\"' jira/bin/setenv.sh \
@@ -51,4 +50,5 @@ COPY files/logwork.jsp /app/jira/atlassian-jira/secure/views/issue/logwork.jsp
 
 CMD ["/app/entry.sh"]
 VOLUME ["/data"]
+VOLUME ["/app/jira/conf"]
 EXPOSE 8080

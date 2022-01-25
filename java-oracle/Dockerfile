@@ -1,5 +1,5 @@
-FROM docker.my4030.ir/ubuntu:focal
-MAINTAINER SgrAlpha <admin@mail.sgr.io>
+FROM ubuntu:focal
+MAINTAINER Mohsen Abbasi
 
 ENV DEBIAN_FRONTEND=noninteractive \
     JAVA_HOME=/usr/lib/jvm/java-11-oracle

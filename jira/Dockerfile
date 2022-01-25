@@ -1,4 +1,4 @@
-FROM docker.my4030.ir/ict/java_oracle:11
+FROM java_oracle:11
 
 #JIRA_VERSION: https://confluence.atlassian.com/jirasoftware/jira-software-release-notes
 ARG JIRA_VERSION

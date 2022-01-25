@@ -8,7 +8,7 @@ services:
         - JIRA_VERSION=${JIRA_VERSION}
         - PROXY=${PROXY}
       dockerfile: ./Dockerfile
-    image: docker.my4030.ir/ict/jira:${JIRA_VERSION}
+    image: jira:${JIRA_VERSION}
     restart: always
     stop_grace_period: 5m
     ports:
@@ -18,7 +18,7 @@ services:
       - jira-conf:/app/jira/conf
 #    mem_limit: 8192m
   postgres:
-    image: docker.my4030.ir/postgres:11
+    image: postgres:11
     restart: always
     stop_grace_period: 10m
     volumes:

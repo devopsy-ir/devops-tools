@@ -1,8 +1,27 @@
 jenkins:
   systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
   authorizationStrategy:
-    loggedInUsersCanDoAnything:
-      allowAnonymousRead: false
+    projectMatrix:
+      permissions:
+        - "View/Delete:authenticated"
+        - "View/Read:authenticated"
+        - "View/Configure:authenticated"
+        - "View/Create:authenticated"
+        - "Job/Read:authenticated"
+        - "Job/Build:authenticated"
+        - "Job/Configure:authenticated"
+        - "Job/Create:authenticated"
+        - "Job/Delete:authenticated"
+        - "Job/Discover:authenticated"
+        - "Job/Move:authenticated"
+        - "Job/Workspace:authenticated"
+        - "Job/Cancel:authenticated"
+        - "Run/Delete:authenticated"
+        - "Run/Replay:authenticated"
+        - "Run/Update:authenticated"
+        - "SCM/Tag:authenticated"
+        - "Overall/Read:anonymous"
+        - "Overall/Administer:authenticated"
   globalNodeProperties:
   - envVars:
       env:
@@ -60,3 +79,38 @@ credentials:
               privateKeySource:
                 directEntry:
                   privateKey: ${SSH_PRIVATE_KEY}
+      - domain:
+          name: "github.com"
+          description: "github.com domain"
+          specifications:
+            - hostnameSpecification:
+                includes: "*.github.com"
+        credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: github_user
+              username: admin
+              password: "${GITHUB_TOKEN}"
+          #- githubAccess:
+          #    scope: GLOBAL
+          #    id: github_access
+          #    username: admin
+          #    passphrase: ${GITHUB_TOKEN}
+          #    description: "Github access username and password (Token)"
+
+jobs:
+  - script: >
+      job('Job_DSL_Seed') {
+        scm {
+          git {
+            remote {
+              url 'https://github.com/devopsy-ir/devops-tools.git'
+            }
+          }
+        }
+        steps {
+          jobDsl {
+            targets 'jenkins/files/jobs/**/*.groovy'
+          }
+        }
+      }

@@ -1,3 +1,47 @@
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - basicSSHUserPrivateKey:
+              scope: SYSTEM
+              id: ssh_with_passphrase_provided
+              username: ssh_root
+              passphrase: ${SSH_KEY_PASSWORD}
+              description: "SSH passphrase with private key file. Private key provided"
+              privateKeySource:
+                directEntry:
+                  privateKey: ${SSH_PRIVATE_KEY}
+#      - domain:
+#          name: "github.com"
+#          description: "github.com domain"
+#          specifications:
+#            - hostnameSpecification:
+#                includes: "*.githubs.com"
+#        credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: github_user
+              username: admin
+              password: "${GITHUB_TOKEN}"
+          #- githubAccess:
+          #    scope: GLOBAL
+          #    id: github_access
+          #    username: admin
+          #    passphrase: ${GITHUB_TOKEN}
+          #    description: "Github access username and password (Token)"
+
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  copyartifact:
+    mode: PRODUCTION
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+  sSHD:
+    port: -1
+
 jenkins:
   systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
   authorizationStrategy:
@@ -60,43 +104,17 @@ jenkins:
   agentProtocols:
     - "jnlp2"
 
-tool:
-  git:
-    installations:
-      - name: git
-        home: /usr/local/bin/git
 
-credentials:
-  system:
-    domainCredentials:
-      - credentials:
-          - basicSSHUserPrivateKey:
-              scope: SYSTEM
-              id: ssh_with_passphrase_provided
-              username: ssh_root
-              passphrase: ${SSH_KEY_PASSWORD}
-              description: "SSH passphrase with private key file. Private key provided"
-              privateKeySource:
-                directEntry:
-                  privateKey: ${SSH_PRIVATE_KEY}
-      - domain:
-          name: "github.com"
-          description: "github.com domain"
-          specifications:
-            - hostnameSpecification:
-                includes: "*.github.com"
-        credentials:
-          - usernamePassword:
-              scope: GLOBAL
-              id: github_user
-              username: admin
-              password: "${GITHUB_TOKEN}"
-          #- githubAccess:
-          #    scope: GLOBAL
-          #    id: github_access
-          #    username: admin
-          #    passphrase: ${GITHUB_TOKEN}
-          #    description: "Github access username and password (Token)"
+#  groovy:
+#    - file:
+#        /etc/jenkins/scripts/disable-approval-security.groovy
+
+
+#tool:
+#  git:
+#    installations:
+#      - name: git
+#        home: /usr/bin/git
 
 jobs:
   - script: >

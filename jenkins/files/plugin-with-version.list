@@ -95,7 +95,7 @@ parameterized-trigger:2.35.2
 matrix-project:1.14
 junit:1.27
 git-client:2.7.7
-artifactory:3.2.2
+#artifactory:3.2.2
 javadoc:1.5
 workflow-cps-global-lib:2.13
 token-macro:2.7

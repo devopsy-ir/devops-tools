@@ -16,6 +16,7 @@ services:
       - GITHUB_TOKEN=${GITHUB_TOKEN}
     volumes:
       - ./files/casc_configs:/etc/jenkins/casc_configs
+      - ./files/scripts:/etc/jenkins/scripts
       - ./volumes/android-sdk:/usr/lib/android-sdk
       - ./volumes/flutter:/usr/share/flutter
       - ./volumes/jenkins:/var/jenkins_home

@@ -13,8 +13,10 @@ services:
       - SSH_KEY_PASSWORD=SSH_KEY_PASSWORD
       - SSH_PRIVATE_KEY=SSH_PRIVATE_KEY
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
     volumes:
       - ./files/casc_configs:/etc/jenkins/casc_configs
+      - ./files/scripts:/etc/jenkins/scripts
       - ./volumes/android-sdk:/usr/lib/android-sdk
       - ./volumes/flutter:/usr/share/flutter
       - ./volumes/jenkins:/var/jenkins_home

@@ -95,7 +95,7 @@ parameterized-trigger
 matrix-project
 junit
 git-client
-artifactory:3.9.0
+#artifactory:3.9.0
 javadoc
 workflow-cps-global-lib
 token-macro

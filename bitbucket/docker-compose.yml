@@ -1,0 +1,33 @@
+version: "3.4"
+services:
+
+  bitbucket:
+    build:
+      context: build
+      dockerfile: Dockerfile
+    image: bitbucket:6.4.0
+    restart: always
+    stop_grace_period: 5m
+    ports:
+      - ${BITBUCKET_PORT}:7990
+      - ${BITBUCKET_PORT_7999}:7999
+    volumes:
+      - ./volumes/bitbucket:/data/bitbucket
+      - ./volumes/crack/atlassian-extras-decoder-v2-3.3.0.jar:/app/bitbucket/app/WEB-INF/lib/atlassian-extras-decoder-v2-3.3.0.jar:ro
+      - ./volumes/crack/atlassian-extras-legacy-3.3.0.jar:/app/bitbucket/app/WEB-INF/lib/atlassian-extras-legacy-3.3.0.jar:ro
+
+  db:
+    image: postgres:11.14-bullseye
+    restart: always
+    stop_grace_period: 10m
+    volumes:
+      - ./volumes/db:/var/lib/postgresql/data
+#      - ./files/postgres:/etc/postgresql/conf.d:ro
+    environment:
+      POSTGRES_PASSWORD: '${PG_PASSWORD}'
+      POSTGRES_USER: '${PG_USER}'
+      POSTGRES_DB: '${PG_DATABASE}'
+#      PG_REPLICATION: master
+#      PG_REPLICA_PASSWORD: '${PG_REPLICA_PASSWORD}'
+#    ports:
+#      - 8090:5432

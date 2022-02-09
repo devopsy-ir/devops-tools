@@ -1,3 +1,4 @@
+#Idea based from: https://github.com/rshaltry/docker-bitbucket-backup-client
 FROM java:alpine
 
 ARG VERSION

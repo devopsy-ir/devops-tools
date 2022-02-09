@@ -62,14 +62,13 @@ services:
     environment:
       bitbucket.home: "/source"
       #By default, the Restore Client will restore into the same database that was backed up. If jdbc.override is set to true , the Restore Client will restore into the database specified by the jdbc properties in the table below. The database must be empty.
-      jdbc.override=true
-      jdbc.driver="org.postgresql.Driver"
-      jdbc.url="jdbc:postgresql://postgres:5432/${PG_DATABASE}"
-      jdbc.user='${PG_USER}'
-      jdbc.password='${PG_PASSWORD}'
-
+      jdbc.override: true
+      jdbc.driver: 'org.postgresql.Driver'
+      jdbc.url: "jdbc:postgresql://postgres:5432/${PG_DATABASE}"
+      jdbc.user: '${PG_USER}'
+      jdbc.password: '${PG_PASSWORD}'
     volumes:
-      - ./volumes/bitbucket:/source:ro
+      - ./volumes/bitbucket:/source
       - ./volumes/backup/bitbucket:/root/bitbucket-backup-client-${CLIENT_VERSION:-3.8.0}/backups
       - /etc/localtime:/etc/localtime:ro
-    entrypoint: ["java", "-jar", "/root/bitbucket-backup-client-${CLIENT_VERSION:-3.8.0}/bitbucket-restore-client.jar", "/root/bitbucket-backup-client-3.8.0/backups/bitbucket-$$(date '+%Y%m%d-%H%M%S')"]
+    entrypoint: ["java", "-jar", "/root/bitbucket-backup-client-${CLIENT_VERSION:-3.8.0}/bitbucket-restore-client.jar", "/root/bitbucket-backup-client-3.8.0/backups/bitbucket-20220208-095427-186.tar"]

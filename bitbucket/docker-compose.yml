@@ -69,6 +69,6 @@ services:
       jdbc.password: '${PG_PASSWORD}'
     volumes:
       - ./volumes/bitbucket:/source
-      - ./volumes/backup/bitbucket:/root/bitbucket-backup-client-${CLIENT_VERSION:-3.8.0}/backups
+      - ${BACKUP_FILE}:/root/backup.tar
       - /etc/localtime:/etc/localtime:ro
-    entrypoint: ["java", "-jar", "/root/bitbucket-backup-client-${CLIENT_VERSION:-3.8.0}/bitbucket-restore-client.jar", "/root/bitbucket-backup-client-3.8.0/backups/bitbucket-20220208-095427-186.tar"]
+    entrypoint: ["java", "-jar", "/root/bitbucket-backup-client-${CLIENT_VERSION:-3.8.0}/bitbucket-restore-client.jar", "/root/backup.tar"]

@@ -13,10 +13,12 @@ Export (Copy) the jar file `atlassian-extras-3.2.jar` from Crowd docker image by
 	The container will be removed automatically since it started with: `--rm` above!
 
 Generate another jar:
-	`java -jar ./files/crowd.jar`
-	`mv ./files/atlassian-extras-3.2.jar ./files/atlassian-extras-2.6.jar`
-	Click second button and then select jar file `atlassian-extras-2.6.jar` to generate another jar.
-	This file is mounted into the container by:
+        `mv ./files/atlassian-extras-3.2.jar ./files/atlassian-extras-2.6.jar`
+	
+        `java -jar ./files/crowd.jar`
+	Now in opened window, click second button and then select jar file `atlassian-extras-2.6.jar` to generate another jar.
+	
+        This file is mounted into the container by:
 		`services:
 		  crowd:
 		    volumes:

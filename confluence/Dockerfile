@@ -31,9 +31,9 @@ RUN set -ex \
     && echo "confluence.home=${CONFLUENCE_HOME}" > confluence/confluence/WEB-INF/classes/confluence-init.properties \
     && chown ${RUN_USER}:${RUN_GROUP} confluence/confluence/WEB-INF/classes/confluence-init.properties \
 #    && sed -i "s|java version|openjdk version|" /app/confluence/bin/check-java.sh \
-    && sed -i '/<Connector port="8090"/a scheme="http" secure="true" proxyName="doc.my4030.ir" proxyPort="80"' confluence/conf/server.xml \
+    && sed -i '/<Connector port="8090"/a scheme="http" secure="true" proxyName="doc.mysite.ir" proxyPort="80"' confluence/conf/server.xml \
     && sed -E -i 's/Xmx[0-9]+m/Xmx2048m/' /app/confluence/bin/setenv.sh
-#    && echo 'CATALINA_OPTS="-Dhttp.proxyHost=proxy.itc.aqr.ir -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.itc.aqr.ir -Dhttps.proxyPort=8080 -Dhttp.nonProxyHosts=\"localhost|127.0.0.1|*.aqrazavi.org|*.aqr.ir|*.razavi.ir|*.itc.aqr.ir|*.itc.razavi.ir\" -Dhttps.nonProxyHosts=\"localhost|127.0.0.1|*.aqrazavi.org|*.aqr.ir|*.razavi.ir|*.itc.aqr.ir|*.itc.razavi.ir\" ${CATALINA_OPTS}"' >> /app/confluence/bin/setenv.sh
+#    && echo 'CATALINA_OPTS="-Dhttp.proxyHost=proxy.mysite.ir -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.itc.aqr.ir -Dhttps.proxyPort=8080 -Dhttp.nonProxyHosts=\"localhost|127.0.0.1|*.mmm.org|*.mmm.ir|*.razavi.ir|*.itc.mmm.ir|*.itc.mmm.ir\" -Dhttps.nonProxyHosts=\"localhost|127.0.0.1|*.mmm.org|*.aqr.ir|*.mmm.ir|*.itc.mmm.ir|*.itc.mmm.ir\" ${CATALINA_OPTS}"' >> /app/confluence/bin/setenv.sh
 
 CMD ["/app/entry.sh"]
 VOLUME ["/data"]

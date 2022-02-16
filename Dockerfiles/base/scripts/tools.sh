@@ -2,7 +2,7 @@
 
 set -ex
 
-https_proxy=http://proxy.itc.aqr.ir:8080 curl -L https://packagecloud.io/github/git-lfs/gpgkey | apt-key add -
+https_proxy=http://proxy.site.ir:8080 curl -L https://packagecloud.io/github/git-lfs/gpgkey | apt-key add -
 
 # `gettext-base` is for `envsubst`
 apt-get update

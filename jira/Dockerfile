@@ -39,7 +39,6 @@ RUN set -ex \
     # && sed -i "s|java version|openjdk version|" /app/jira/bin/check-java.sh \
 #    && sed -i 's/JiraSeraphAuthenticator/SSOSeraphAuthenticator/g' jira/atlassian-jira/WEB-INF/classes/seraph-config.xml \
     && sed -i '/<Connector port="8080"/a scheme="http"' jira/conf/server.xml \
-#    && sed -i "s/^.*JVM_SUPPORT_RECOMMENDED_ARGS=.*$/JVM_SUPPORT_RECOMMENDED_ARGS='-Dhttp.proxyHost=proxy.itc.aqr.ir -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.itc.aqr.ir -Dhttps.proxyPort=8080 -Dhttp.nonProxyHosts=\"localhost|127.0.0.1|*.aqrazavi.org|*.aqr.ir|*.itc.aqr.ir|*.razavi.ir|*.itc.razavi.ir\" -Dhttps.nonProxyHosts=\"localhost|127.0.0.1|*.aqrazavi.org|*.aqr.ir|*.itc.aqr.ir|*.razavi.ir|*.itc.razavi.ir\"'/" jira/bin/setenv.sh \
     && sed -i '/JVM_MINIMUM_MEMORY=/c\JVM_MINIMUM_MEMORY=\"2048m\"' jira/bin/setenv.sh \
     && sed -i '/JVM_MAXIMUM_MEMORY=/c\JVM_MAXIMUM_MEMORY=\"4096m\"' jira/bin/setenv.sh \
     && xmlstarlet ed -N 'X=http://java.sun.com/xml/ns/javaee' -d "//X:servlet[*[contains(text(),'jsp.secure.views.issue.logwork_jsp')]]" -d "//X:servlet-mapping[*[contains(text(),'jsp.secure.views.issue.logwork_jsp')]]" jira/atlassian-jira/WEB-INF/web.xml > jira/atlassian-jira/WEB-INF/web2.xml \

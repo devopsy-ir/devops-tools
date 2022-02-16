@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "docker.itc.aqr.ir/ict/debian"
+        registry = "docker.mysite.ir/ict/debian"
     }
 
     agent any
@@ -22,7 +22,7 @@ pipeline {
         stage('Push images') {
             steps{
                 script {
-                    def server = Artifactory.server 'AQR Docker'
+                    def server = Artifactory.server 'SAMPLE Docker'
                     def docker = Artifactory.docker server: server
                     def image = docker.push registry + ':' + dist, 'docker'
                     server.publishBuildInfo image

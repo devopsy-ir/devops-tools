@@ -35,8 +35,7 @@ ENV CROWD_INSTALL_DIR=/app/crowd
 RUN set -ex \
     && echo "crowd.home = ${CROWD_HOME}" > crowd/crowd-webapp/WEB-INF/classes/crowd-init.properties \
     # && sed -i "s|java version|openjdk version|" /app/jira/bin/check-java.sh \
-    && sed -i '/<Connector /a scheme="https" proxyName="itc.razavi.ir" proxyPort="443"' crowd/apache-tomcat/conf/server.xml \
-    && sed -i "1iJAVA_OPTS='-Dhttp.proxyHost=proxy.itc.aqr.ir -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.itc.aqr.ir -Dhttps.proxyPort=8080 -Dhttp.nonProxyHosts=\"localhost|127.0.0.1|*.aqrazavi.org|*.aqr.ir|*.itc.aqr.ir|*.razavi.ir|*.itc.razavi.ir\" -Dhttps.nonProxyHosts=\"localhost|127.0.0.1|*.aqrazavi.org|*.aqr.ir|*.itc.aqr.ir|*.razavi.ir|*.itc.razavi.ir\"'" /app/crowd/apache-tomcat/bin/setenv.sh
+    && sed -i '/<Connector /a scheme="https" proxyName="itc.razavi.ir" proxyPort="443"' crowd/apache-tomcat/conf/server.xml
 
 CMD ["/app/entry.sh"]
 #ENTRYPOINT ["/usr/bin/dumb-init"]

@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   postgres:
-    image: docker.itc.aqr.ir/ict/postgres:latest
+    image: docker.mysite.ir/ict/postgres:latest
     restart: always
     stop_grace_period: 10m
     volumes:

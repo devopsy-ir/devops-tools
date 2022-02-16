@@ -123,6 +123,7 @@ jobs:
           git {
             remote {
               url 'https://github.com/devopsy-ir/devops-tools.git'
+              credentials('access_user')
             }
           }
         }

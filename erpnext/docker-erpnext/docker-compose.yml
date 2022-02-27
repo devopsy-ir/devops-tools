@@ -4,7 +4,7 @@ version: "3.8"
 
 services:
   erpnext-nginx:
-    image: docker.my4030.ir/frappe/erpnext-nginx:${APP_VERSION}
+    image: frappe/erpnext-nginx:${APP_VERSION}
     container_name: ${APP_CONTAINER_NAME}-nginx
     restart: always
     ports:
@@ -20,7 +20,7 @@ services:
       - assets-vol:/assets:rw
 
   erpnext-python:
-    image: docker.my4030.ir/frappe/erpnext-worker:${APP_VERSION}
+    image: frappe/erpnext-worker:${APP_VERSION}
     container_name: ${APP_CONTAINER_NAME}-worker
     restart: always
     environment:
@@ -36,7 +36,7 @@ services:
       - assets-vol:/home/frappe/frappe-bench/sites/assets:rw
 
   frappe-socketio:
-    image: docker.my4030.ir/frappe/frappe-socketio:${APP_VERSION}
+    image: frappe/frappe-socketio:${APP_VERSION}
     container_name: ${APP_CONTAINER_NAME}-socketio
     restart: always
     depends_on:
@@ -46,7 +46,7 @@ services:
       - logs-vol:/home/frappe/frappe-bench/logs:rw
 
   erpnext-worker-default:
-    image: docker.my4030.ir/frappe/erpnext-worker:${APP_VERSION}
+    image: frappe/erpnext-worker:${APP_VERSION}
     container_name: ${APP_CONTAINER_NAME}-worker-default
     restart: always
     command: worker
@@ -58,7 +58,7 @@ services:
       - logs-vol:/home/frappe/frappe-bench/logs:rw
 
   erpnext-worker-short:
-    image: docker.my4030.ir/frappe/erpnext-worker:${APP_VERSION}
+    image: frappe/erpnext-worker:${APP_VERSION}
     container_name: ${APP_CONTAINER_NAME}-worker-short
     restart: always
     command: worker
@@ -72,7 +72,7 @@ services:
       - logs-vol:/home/frappe/frappe-bench/logs:rw
 
   erpnext-worker-long:
-    image: docker.my4030.ir/frappe/erpnext-worker:${APP_VERSION}
+    image: frappe/erpnext-worker:${APP_VERSION}
     container_name: ${APP_CONTAINER_NAME}-worker-long
     restart: always
     command: worker
@@ -85,7 +85,7 @@ services:
       - sites-vol:/home/frappe/frappe-bench/sites:rw
 
   erpnext-schedule:
-    image: docker.my4030.ir/frappe/erpnext-worker:${APP_VERSION}
+    image: frappe/erpnext-worker:${APP_VERSION}
     container_name: ${APP_CONTAINER_NAME}-schedule
     restart: always
     command: schedule
@@ -97,28 +97,28 @@ services:
       - logs-vol:/home/frappe/frappe-bench/logs:rw
 
   redis-cache:
-    image: docker.my4030.ir/redis:${DB_REDIS_VERSION}
+    image: redis:${DB_REDIS_VERSION}
     container_name: ${APP_CONTAINER_NAME}-redis-cache
     restart: always
     volumes:
       - ${VOLUMES_PATH_PREFIX}/redis-cache-vol:/data
 
   redis-queue:
-    image: docker.my4030.ir/redis:${DB_REDIS_VERSION}
+    image: redis:${DB_REDIS_VERSION}
     container_name: ${APP_CONTAINER_NAME}-redis-queue
     restart: always
     volumes:
       - ${VOLUMES_PATH_PREFIX}/redis-queue-vol:/data
 
   redis-socketio:
-    image: docker.my4030.ir/redis:${DB_REDIS_VERSION}
+    image: redis:${DB_REDIS_VERSION}
     container_name: ${APP_CONTAINER_NAME}-redis-socketio
     restart: always
     volumes:
       - ${VOLUMES_PATH_PREFIX}/redis-socketio-vol:/data
 
   mariadb:
-    image: docker.my4030.ir/mariadb:${DB_MARIADB_VERSION}
+    image: mariadb:${DB_MARIADB_VERSION}
     container_name: ${APP_CONTAINER_NAME}-mariadb
     restart: always
     ports:
@@ -135,7 +135,7 @@ services:
       - ${VOLUMES_PATH_PREFIX}/mariadb-vol:/var/lib/mysql
 
   site-creator:
-    image: docker.my4030.ir/frappe/erpnext-worker:${APP_VERSION}
+    image: frappe/erpnext-worker:${APP_VERSION}
     container_name: ${APP_CONTAINER_NAME}-site-creator
     restart: "no"
     command: new

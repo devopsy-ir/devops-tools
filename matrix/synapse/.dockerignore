@@ -1,0 +1,11 @@
+# ignore everything by default
+*
+
+# things to include
+!docker
+!synapse
+!MANIFEST.in
+!README.rst
+!setup.py
+
+**/__pycache__

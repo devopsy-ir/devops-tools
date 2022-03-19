@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  coturn:
+    build:
+      context: ./build/coturn
+      args:
+        COTURN_VERSION: ${COTURN_VERSION:-4.5.1.1}
+      network: host
+    image: devops-tools/coturn:latest
+    restart: always
+    volumes:
+      - "./files/coturn/conf/turnserver.conf:/etc/turnserver.conf:ro"
+      - "./files/coturn/data:/srv/coturn"
+      # You could use "docker secrets" instead
+      # Be sure to edit ./coturn/conf/turnserver.conf afterwards if
+      # you use "docker secrets" or change these paths
+      - ./files/ssl/my4030.ir/fullchain.pem:/etc/ssl/fullchain.pem:ro
+      - ./files/ssl/my4030.ir/privkey.pem:/etc/ssl/privkey.pem:ro
+    network_mode: host

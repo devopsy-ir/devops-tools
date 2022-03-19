@@ -1,0 +1,15 @@
+version: "3.4"
+
+services:
+  app:
+    image: matrix/element-web:${ELEMENT_VERSION:-1.7.23}
+    build:
+      context: .
+      args:
+        - ELEMENT_VERSION=${ELEMENT_VERSION:-1.7.23}
+    environment:
+      DEFAULT_HS_URL: https://matrix-backend.my4030.ir
+      DISABLE_GUESTS: "true"
+      DISABLE_LOGIN_LANGUAGE_SELECTOR: "true"
+    ports:
+      - ${PORT:-8080}:8080/tcp

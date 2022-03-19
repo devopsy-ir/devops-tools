@@ -3,7 +3,7 @@ version: '3.4'
 services:
   coturn:
     build:
-      context: ./build/coturn
+      context: ./files/coturn/build
       args:
         COTURN_VERSION: ${COTURN_VERSION:-4.5.1.1}
       network: host

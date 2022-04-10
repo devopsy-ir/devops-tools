@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  sendbot:
+    image: sendbot:latest
+    build:
+      context: .
+    volumes:
+      - ../../jenkins/volumes/jenkins/build:/build:ro

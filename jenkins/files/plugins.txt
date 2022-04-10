@@ -1,3 +1,9 @@
+jaxb
+convert-to-pipeline
+ssh-steps
+job-dsl
+preSCMbuildstep
+crowd2
 configuration-as-code
 display-url-api
 pipeline-rest-api

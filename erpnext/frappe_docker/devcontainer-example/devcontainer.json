@@ -1,0 +1,20 @@
+{
+  "name": "Frappe Bench",
+  "appPort": [8000, 9000, 6787],
+  "remoteUser": "frappe",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "debug.node.autoAttach": "disabled"
+  },
+  "dockerComposeFile": "./docker-compose.yml",
+  "service": "frappe",
+  "workspaceFolder": "/workspace/development",
+  "shutdownAction": "stopCompose",
+  "extensions": [
+    "ms-python.python",
+    "auchenberg.vscode-browser-preview",
+    "grapecity.gc-excelviewer",
+    "mtxr.sqltools",
+    "visualstudioexptteam.vscodeintellicode"
+  ]
+}

@@ -1155,10 +1155,10 @@ oembed:
 
 # The public URIs of the TURN server to give to clients
 #
-turn_uris: [ "turn:matrix-turn.my4030.ir?transport=udp", "turn:matrix-turn.my4030.ir?transport=tcp" ]
+turn_uris: [ "turn:173.45.80.74:3478?transport=udp", "turn:173.45.80.74:3478?transport=tcp" ]
 turn_shared_secret: "n0t4ctuAllymatr1Xd0TorgSshar3d5ecret4obvIousreAsons"
-turn_user_lifetime: 86400000
-turn_allow_guests: True
+turn_user_lifetime: 1h
+#turn_allow_guests: True
 
 # The shared secret used to compute passwords for the TURN server
 #

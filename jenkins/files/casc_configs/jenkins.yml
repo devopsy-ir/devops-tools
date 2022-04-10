@@ -2,83 +2,53 @@ credentials:
   system:
     domainCredentials:
       - credentials:
-          - basicSSHUserPrivateKey:
-              scope: SYSTEM
-              id: ssh_with_passphrase_provided
-              username: ssh_root
-              passphrase: ${SSH_KEY_PASSWORD}
-              description: "SSH passphrase with private key file. Private key provided"
-              privateKeySource:
-                directEntry:
-                  privateKey: ${SSH_PRIVATE_KEY}
-#      - domain:
-#          name: "github.com"
-#          description: "github.com domain"
-#          specifications:
-#            - hostnameSpecification:
-#                includes: "*.githubs.com"
-#        credentials:
           - usernamePassword:
               scope: GLOBAL
-              id: github_user
-              username: admin
-              password: "${GITHUB_TOKEN}"
-          #- githubAccess:
-          #    scope: GLOBAL
-          #    id: github_access
-          #    username: admin
-          #    passphrase: ${GITHUB_TOKEN}
-          #    description: "Github access username and password (Token)"
-
-security:
-  apiToken:
-    creationOfLegacyTokenEnabled: false
-    tokenGenerationOnCreationEnabled: false
-    usageStatisticsEnabled: true
-  copyartifact:
-    mode: PRODUCTION
-  globalJobDslSecurityConfiguration:
-    useScriptSecurity: false
-  sSHD:
-    port: -1
+              id: "bitbucket_user"
+              username: "admin"
+              password: "${JENKINS_BITBUCKET_PASSWORD}"
+              description: "Username/Password Credentials for admin of Bitbucket"
+          - usernamePassword:
+              scope: GLOBAL
+              id: "gitlab-hivaa_user"
+              username: "root"
+              password: "${JENKINS_GITLAB_HIVAA_PASSWORD}"
+              description: "Username/Password Credentials for root of Hivaa Gitlab"
+          - usernamePassword:
+              scope: GLOBAL
+              id: "ssh188"
+              username: "root"
+              password: "${JENKINS_188_PASSWORD}"
+              description: "Username/Password Credentials for root of machine IP 188(public)/55(private)"
 
 jenkins:
   systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
   authorizationStrategy:
     projectMatrix:
       permissions:
-        - "View/Delete:authenticated"
-        - "View/Read:authenticated"
-        - "View/Configure:authenticated"
-        - "View/Create:authenticated"
-        - "Job/Read:authenticated"
-        - "Job/Build:authenticated"
-        - "Job/Configure:authenticated"
-        - "Job/Create:authenticated"
-        - "Job/Delete:authenticated"
-        - "Job/Discover:authenticated"
-        - "Job/Move:authenticated"
-        - "Job/Workspace:authenticated"
-        - "Job/Cancel:authenticated"
-        - "Run/Delete:authenticated"
-        - "Run/Replay:authenticated"
-        - "Run/Update:authenticated"
-        - "SCM/Tag:authenticated"
-        - "Overall/Read:anonymous"
-        - "Overall/Administer:authenticated"
+      - "USER:Overall/Administer:admin-crowd"
+      - "USER:Overall/Administer:admin"
+      - "USER:Overall/Read:hossein_225"
   globalNodeProperties:
   - envVars:
       env:
-      - key: VARIABLE1
-        value: foo
-      - key: VARIABLE2
-        value: bar
+      - key: ANDROID_SDK_ROOT
+        value: /var/lib/jenkins/android-sdk
+#      - key: JAVA_OPTS
+#        value: '-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
   securityRealm:
-    local:
-      allowsSignup: false
-      users:
-       - id: admin
-         password: ${ADMIN_PASSWORD:-admin}
+    crowd:
+      applicationName: "jenkins"
+      group: "jenkins-users"
+      password: "${CROWD_JENKINS_PASSWORD}"
+      url: "https://crowd.my4030.ir/crowd"
+
+#    local:
+#      allowsSignup: false
+#      users:
+#       - id: admin
+#         password: ${ADMIN_PASSWORD:-admin}
+
 #    ldap:
 #      configurations:
 #        - groupMembershipStrategy:
@@ -104,17 +74,17 @@ jenkins:
   agentProtocols:
     - "jnlp2"
 
-
-#  groovy:
-#    - file:
-#        /etc/jenkins/scripts/disable-approval-security.groovy
-
-
-#tool:
-#  git:
-#    installations:
-#      - name: git
-#        home: /usr/bin/git
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  copyartifact:
+    mode: PRODUCTION
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+  sSHD:
+    port: -1
 
 jobs:
   - script: >
@@ -122,14 +92,14 @@ jobs:
         scm {
           git {
             remote {
-              url 'https://github.com/devopsy-ir/devops-tools.git'
-              credentials('access_user')
+              url 'https://git.my4030.ir/scm/infra/infra.git'
+              credentials('bitbucket_user')
             }
           }
         }
         steps {
           jobDsl {
-            targets 'jenkins/files/jobs/**/*.groovy'
+            targets 'services/jenkins/files/jobs/**/*.groovy'
           }
         }
       }

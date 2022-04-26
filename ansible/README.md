@@ -1,5 +1,6 @@
 - [Install multiple apt packages](#Install-multiple-apt-packages)
 - [Remove file](#Remove-file)
+- [Create SymLinks][#Create-SymLink]
 
 ## Install multiple apt packages
 You need to pass packages' names into `pkg` of module `apt`
@@ -34,3 +35,17 @@ To remove a file:
     path: /etc/nginx/sites-enabled/default
     state: absent
 ```
+
+## Create SymLink
+
+To create sylinks, in cases such as enabling a nginx site (sites-available -> sites-enabled), we can use module `file` as below:
+```yaml
+- name: Enable the nginx config filebecome: true
+  file:
+    src: /etc/nginx/sites-available/mezzanine.conf
+    dest: /etc/nginx/sites-enabled/mezzanine.conf
+    state: link
+    mode: 0777
+```
+As shown in above example, we use the file module to create the symlink and to remove the default config file. This module is useful for creating directories, symlinks, and empty files; deleting files, directories, and symlinks; and setting properties such as permissions and ownership.
+[ref: page-177 of ebook `Ansible Up and Running, 3rd Edition Sixth Early Release`]

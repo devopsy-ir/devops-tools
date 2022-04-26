@@ -3,7 +3,7 @@
 
 ## Install multiple apt packages
 You need to pass packages' names into `pkg` of module `apt`
-```
+```yaml
 - name: Install apt packages
   become: true
   apt:

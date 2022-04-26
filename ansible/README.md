@@ -1,5 +1,5 @@
-- [Install multiple apt packages](#Install multiple apt packages)
-- [Remove file](#Remove file)
+- [Install multiple apt packages](#Install-multiple-apt-packages)
+- [Remove file](#Remove-file)
 
 ## Install multiple apt packages
 You need to pass packages' names into `pkg` of module `apt`

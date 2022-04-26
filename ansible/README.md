@@ -1,6 +1,7 @@
 - [Install multiple apt packages](#install-multiple-apt-packages)
 - [Remove file](#remove-file)
 - [Create SymLinks](#create-symlink)
+- [Installing TLS certificates](#Installing-TLS-certificates)
 
 ## Install multiple apt packages
 You need to pass packages' names into `pkg` of module `apt`
@@ -69,8 +70,3 @@ chdir={{ conf_path }}	#changes the directory before running the command.
 creates={{ conf_path }}/{{ proj_name }}.crt	#implements idempotence: Ansible will first check whether the file {{ conf_path }}/{{ proj_name }}.crt exists on the host. If it already exists, Ansible will skip this task.
 when: tls_enabled	#If `tls_enabled` evaluates to `false`, Ansible will skip the task.
 ```
-Note that the task contain this clause:
-```yaml
-when: tls_enabled
-```
-

@@ -1,6 +1,6 @@
 - [Install multiple apt packages](#install-multiple-apt-packages)
 - [Remove file](#remove-file)
-- [Create SymLinks][#create-symlink]
+- [Create SymLinks](#create-symlink)
 
 ## Install multiple apt packages
 You need to pass packages' names into `pkg` of module `apt`

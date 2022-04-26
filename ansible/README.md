@@ -2,6 +2,7 @@
 - [Remove file](#remove-file)
 - [Create SymLinks](#create-symlink)
 - [Installing TLS certificates](#Installing-TLS-certificates)
+- [Cronjob](#cronjob)
 
 ## Install multiple apt packages
 You need to pass packages' names into `pkg` of module `apt`
@@ -70,3 +71,17 @@ chdir={{ conf_path }}	#changes the directory before running the command.
 creates={{ conf_path }}/{{ proj_name }}.crt	#implements idempotence: Ansible will first check whether the file {{ conf_path }}/{{ proj_name }}.crt exists on the host. If it already exists, Ansible will skip this task.
 when: tls_enabled	#If `tls_enabled` evaluates to `false`, Ansible will skip the task.
 ```
+
+## Cronjob
+- name: Install a cron job
+  cron:
+    name: "poll twitter"
+    minute: "*/5"
+    user: "{{ user }}"
+    job: "{{ manage }} poll_twitter"
+
+### Delete a cronjob
+- name: Remove cron job
+  cron:
+    name: "poll twitter"
+    state: absent

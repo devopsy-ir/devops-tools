@@ -73,15 +73,23 @@ when: tls_enabled	#If `tls_enabled` evaluates to `false`, Ansible will skip the 
 ```
 
 ## Cronjob
+```yaml
 - name: Install a cron job
   cron:
     name: "poll twitter"
     minute: "*/5"
     user: "{{ user }}"
     job: "{{ manage }} poll_twitter"
-
+```
+After running the task above, you can see the result by `crontab -l` to list the jobs. Here’s what it looks like for me when I deploy as the Vagrant user:
+```
+#Ansible: poll twitter
+*/5 * * * * /home/vagrant/.virtualenvs/mezzanine_example/bin/python3 /home/vagrant/mezzanine/mezzanine_example/manage.py poll_twitter 
+```
 ### Delete a cronjob
+```yaml
 - name: Remove cron job
   cron:
     name: "poll twitter"
     state: absent
+```

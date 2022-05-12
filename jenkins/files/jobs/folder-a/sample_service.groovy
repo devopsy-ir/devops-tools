@@ -1,6 +1,9 @@
-folder('folder-a') {
-}
 pipelineJob('folder-a/sample_service') {
+  triggers {
+    bitbucketTriggers {
+      pullRequestServerMergedAction("dev")
+    }
+  }
   authorization {
         permissions('user1', [
             'hudson.model.Item.Build',

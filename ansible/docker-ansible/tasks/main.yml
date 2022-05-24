@@ -12,3 +12,18 @@
   tasks:  
     - name: os specific tasks
       include: "{{ ansible_distribution | lower }}-{{ ansible_distribution_release }}.yml"
+
+    - name: Alias fig to command docker compose
+      lineinfile:
+        path=/root/.bashrc
+        line="alias fig='docker-compose'"
+        owner=root
+        regexp='^alias docker-compose'
+        state=present
+        insertafter=EOF
+        create=True
+
+    - name: Source .bashrc
+      shell: "source /root/.bashrc"
+      args:
+        executable: /bin/bash

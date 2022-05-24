@@ -1,0 +1,15 @@
+---
+- name: 'Ansible facts'
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: OS details
+      debug:
+        msg: >-
+          os_family:
+          {{ ansible_os_family }},
+          distro:
+          {{ ansible_distribution }}
+          {{ ansible_distribution_version }},
+          kernel:
+          {{ ansible_kernel }}

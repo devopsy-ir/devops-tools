@@ -196,6 +196,7 @@ services:
         condition: service_healthy
     image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
     volumes:
+      - ./files/kibana.yml:/usr/share/kibana/config/kibana.yml
       - certs:/usr/share/kibana/config/certs
       - kibanadata:/usr/share/kibana/data
     ports:
@@ -216,6 +217,14 @@ services:
       interval: 10s
       timeout: 10s
       retries: 120
+
+  filebeat:
+    image: "docker.elastic.co/beats/filebeat:${STACK_VERSION}"
+    user: root
+    volumes:
+      - ./files/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   certs:

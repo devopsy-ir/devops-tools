@@ -12,4 +12,4 @@ do
     fi
 done
 
-$package_manager install python3
+$package_manager install python3 python3-minimal

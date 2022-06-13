@@ -1,11 +1,14 @@
 ---
 - name: Install python
-  hosts: python
+  hosts: all
   become: true
   gather_facts: no
   pre_tasks:
-  - name: Install python
-    #raw: 'cat ./script.sh'
-    raw: "{{ lookup('file', 'script.sh') }}"
-    args:
-      executable: /bin/bash
+    - name: Install python
+      #raw: 'cat ./script.sh'
+      raw: "{{ lookup('file', 'script.sh') }}"
+      args:
+        executable: /bin/bash
+#  tasks:
+#    - set_fact:
+#        ansible_python_interpreter: /usr/bin/python3

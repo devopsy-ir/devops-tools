@@ -1,0 +1,33 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Add  Cronjobs
+  hosts: all
+
+  vars:
+    user: "{{ ansible_user }}"
+    proj_path: "/usr/local/bin"
+    ansible_python_interpreter: /usr/bin/python3
+
+  vars_files:
+    - vars.yml
+
+  tasks:
+
+    - name: Copy backup shell script file to remote
+      become: true
+      template:
+        src: "backup-env-files.sh.j2"
+        dest: "{{ proj_path }}/backup-env-files.sh"
+        owner: root
+        group: root
+        mode: 0700
+
+    - name: Add .env files backup script to Crontab
+      become: true
+      cron:
+        name: "Backup .env files"
+        weekday: 2
+        minute: 0
+        hour: 12
+        user: "{{ user }}"
+        job: "/bin/bash {{ proj_path }}/backup-env-files.sh > /root/backup.log 2>&1"

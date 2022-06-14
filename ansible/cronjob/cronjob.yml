@@ -30,4 +30,4 @@
         minute: 0
         hour: 12
         user: "{{ user }}"
-        job: "/bin/bash {{ proj_path }}/backup-env-files.sh > /root/backup.log 2>&1"
+        job: "/bin/bash {{ proj_path }}/backup-env-files.sh > ~/backup.log 2>&1"

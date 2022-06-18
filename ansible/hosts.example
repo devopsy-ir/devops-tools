@@ -1,4 +1,2 @@
 [swarm]
-mgr ansible_ssh_user=root
-w1 ansible_ssh_user=root
-w2 ansible_ssh_user=root
+IP:port ansible_ssh_user=root

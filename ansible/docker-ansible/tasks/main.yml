@@ -4,12 +4,27 @@
 ---
 - hosts: all
   become: true
+  gather_facts: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.8
   vars_files:
     - ../vars/docker.yml
 #- name: os specific vars
 #  include_vars: "{{ 'ansible_distribution'-'ansible_distribution_major_version' | lower }}"
 
-  tasks:  
+
+  tasks:
+
+    - name: print it out
+      debug:
+        msg:
+          - "{{ ansible_distribution }}"
+          - "{{ ansible_distribution_major_version }}"  ## <-- dummy stuff ends
+    - name: print facts
+      debug:
+        msg:
+          - "{{ ansible_distribution }}"
+          - "{{ ansible_distribution_major_version }}"
     - name: os specific tasks
       include: "{{ ansible_distribution | lower }}-{{ ansible_distribution_release }}.yml"
 
